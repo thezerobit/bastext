@@ -3,7 +3,6 @@ OBJS=main.o inmode.o outmode.o tokens.o tokenize.o dtokeniz.o select.o t64.o
 
 # All targets ----------------------------------------------------------------
 all: bastext.exe
-# bastext.doc
 
 # Main executable ------------------------------------------------------------
 bastext.exe: $(OBJS)
@@ -33,15 +32,6 @@ select.o: select.c select.h tokenize.h
 t64.o: t64.c t64.h
 	gcc -c t64.c
 
-# Plaintext documentation ----------------------------------------------------
-#bastext.doc: bastext.1 tidy
-#	groff -Tlatin1 -mandoc bastext.1 > /tmp/bastext.doc
-#	tidy /tmp/bastext.doc ./bastext.doc
-#	rm /tmp/bastext.doc
-#
-#tidy: tidy.c
-#	gcc -o tidy tidy.c
-#
 # Cleanup --------------------------------------------------------------------
 clean:
 	-rm core *.o *~
