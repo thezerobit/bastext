@@ -17,7 +17,7 @@ filename(s)
 \-h
 .PD
 .SH DESCRIPTION
-.B bastext
+.B BasText
 is a program that is used to convert between binary (tokenized)
 BASIC files from the Commodore C64 and C128 to a clean ASCII text
 format that is human and machine readable, as well as transportable
@@ -29,7 +29,7 @@ dialects.
 .PP
 The following Commodore BASIC versions and extensions are supported
 by
-.BR bastext :
+.BR BasText :
 .RS
 .PP
 .I Commodore BASIC 2.0 (VIC20/C64)
@@ -59,7 +59,7 @@ by
 .RE
 .PD
 .PP
-.B bastext
+.B BasText
 tries to autodetect the Commodore BASIC dialect used in the file
 it is processing.
 At the moment, this is done by checking the starting address of the
@@ -93,59 +93,6 @@ interpreted as BASIC 7.1.
 4001
 .I Commodore 128 BASIC 7.0
 saved with graphics mode enabled.
-.PP
-In version 1.0, some different third-party extensions were
-included in the autodetection.
-This is not true anymore, and thus you'll need to specify all
-extensions via command line parameters.
-.PP
-The text files created by this program are supposed to be
-compatible with those of
-.BR tok64 ,
-meaning that the files it creates should be possible to
-interpret with this one, and the files this program creates
-should be possible to interpret with it.
-However, an extra header, in front of
-.BR tok64 \'s
-.I start tok64
-header is added,
-.IR "start bastext" ,
-which contains the starting address of the original binary
-file, as well as the name of BASIC extension used.
-This is to make the autodetection possible for the text-to-binary
-direction.
-For Commodore 128 BASIC programs, the header is changed to
-.IR "start tok128" ,
-since
-.B tok64
-only supports C64 programs, this will make it skip those
-programs.
-For BASIC 4.0 programs, the header is
-.IR "start tokpet" ,
-for the same reason.
-.PP
-When
-.B bastext
-interprets text representations of files back into binary mode,
-it will use the
-.I start bastext
-header to determine the BASIC extension to use.
-If the BASIC version is not mentioned there (version 1.0 of
-.I bastext
-only included the start address),
-bastext tries to autodetect the file format in the same way as in
-binary-to-text.
-If no such header exists (e.g if the file was created with
-.BR tok64 ),
-.B bastext
-will assume that the program's start address is 0801
-(standard for Commodore 64), and that it should interpret it as
-Commodore 128 BASIC 7.0, as this is a super-set of BASIC 2.0.
-This should make
-.B bastext
-able to interpret most text files without any big problems.
-If autodetection in this mode does not work, use one of the
-"force" parameters described below.
 .SH OPTIONS
 One of the three mode selectors must be given:
 .TP
@@ -194,7 +141,7 @@ starting address.
 Maintain strict compatibility with
 .BR tok64 .
 This means that
-.BR bastext \'s
+.BR BasText \'s
 "extended" escape codes for charactes 92 (British pound),
 95 (left arrow), 160\-192 (shift space to shift asterisk),
 219\-221 (shift plus, commodore minus and shift minus), and 223
@@ -284,128 +231,17 @@ text file into Commodore BASIC 7.0 programs.
 .SH "SEE ALSO"
 .PD 0
 .PP
-.I http://ip64.home.ml.org/
+.I http://www.softwolves.pp.se/idoc/
 .PP
-.I http://ourworld.compuserve.com/homepages/pcgeek/proj64.htm
-.PD
-.SH FILES
-.I ./bastext.t64
-.SH "DISTRIBUTED FILES"
-These source files comes with the
-.B bastext
-distribution:
-.PD 0
-.TP
-.I COPYING
-The GNU Public License.
-.TP
-.I Makefile
-File used by
-.BR make (1)
-to automate compilation.
-.TP
-.I Makefile.os2
-Makefile for DOS/OS2 version (using EMX).
-.TP
-.I bastext.1
-Source code for manual page/documentation.
-.TP
-.I bastext.doc
-Manual page/documentation.
-.TP
-.I dtokeniz.c
-Routines for detokenization.
-.TP
-.I inmode.c
-Routines used for the input mode.
-.TP
-.I inmode.h
-Header file for
-.IR inmode.c .
-.TP
-.I main.c
-Start-up routines.
-.TP
-.I outmode.c
-Routines used for the output mode.
-.TP
-.I outmode.h
-Header file for
-.IR outmode.c .
-.TP
-.I select.c
-Routines for BASIC dialect autodetection.
-.TP
-.I select.h
-Header file for
-.IR select.c .
-.TP
-.I t64.c
-Routines used with T64 files.
-.TP
-.I t64.h
-Header file for
-.IR t64.c ,
-including definition of T64 file format.
-.TP
-.I tidy.c
-Utility program used to create
-.IR bastext.doc .
-.TP
-.I tokenize.c
-Routines for tokenization.
-.TP
-.I tokenize.h
-Header file for
-.I tokenize.c
-and
-.IR dtokeniz.c .
-.TP
-.I tokens.c
-Tokens and PETSCII tables.
-.TP
-.I tokens.h
-Header file for
-.IR tokens.c .
-.TP
-.I version.h
-Header file contaning program name and version.
-.PD
-.PP
-These binary files comes with the
-.B bastext
-distribution:
-.PD 0
-.TP
-.I linux/bastext.i86
-Binary version for Linux/i86.
-.TP
-.I linux/bastext.sun
-Binary version for Linux/Sparc.
-.TP
-.I sun/bastext.sun
-Binary version for SunOS/Sparc.
-.TP
-.I dos/bastext.exe
-Binary version for DOS and OS/2 (EMX).
-Requires the EMX/RSX runtime libraries.
+.I http://project64.c64.org/
 .PD
 .SH BUGS
-TFC3 BASIC files that are converted to text will not have a
-.I start bastext
-header, so when converted back to binary, they will be
-interpreted as Commodore 128 BASIC 7.0.
-You have to use the
-.I \-3
-option (force TFC3) to convert TFC3 BASIC text files back to
-binary.
-.PP
 .B tok64
 seems to parse uppercase characters in quoted strings
 incorrectly.
 It converts them into characters in the range of 97-122,
 whereas a Commodore computer (and
-.BR bastext )
+.BR BasText )
 usually uses the "shadow" range of 193-208.
 This will not look any different when used on a Commodore
 computer, but it will make the binaries differ, and could
@@ -413,23 +249,23 @@ make a difference if the program needs the correct PETSCII
 values.
 The problem will appear when you convert the program in
 one direction with
-.B bastext
+.B BasText
 and in the other with
 .BR tok64 ,
 not when using the same program in both directions.
 .PP
-.B bastext
+.B BasText
 does not yet support the "bare" format that tok64 normally
 outputs (without the
 .I start tok64
 header).
 .SH VERSION\ INFORMATION
 This documentation covers version 1.1 BETA of
-.BR bastext .
+.BR BasText .
 .SH AUTHOR
 BASTEXT was written by Peter Karlsson.
-If you have bug-reports or questions, mail them to pk@abc.se.
+If you have bug-reports or questions, mail them to peter@softwolves.pp.se
 .PP
-A Softwolves Software (tm) Release in 1998.
+A Softwolves Software (tm) Release in 1999.
 .PP
 This program is released under the GNU Public License.
