@@ -16,10 +16,12 @@ basic_t selectbasic(int adr)
 {
 	/* With regard to the starting address, select a probable
 	 * BASIC version
-	 *  0401 => BASIC 2.0 (VIC20) or Graphics52 (C64)
+	 *  0401 => BASIC 2.0 (VIC20, +3K RAM) or Graphics52 (C64)
 	 *          Graphics52 is the super-set, select it
 	 *  0801 => BASIC 2.0 (C64) or TFC3 BASIC (C64)
 	 *          TFC3 is the super-set, select it
+	 *  1001 => BASIC 2.0 (VIC20 unexpanded)
+	 *  1201 => BASIC 2.0 (VIC20 +8K RAM)
 	 *  132D => BASIC 7.1 (C128) with bound extension file
 	 *  1C01 => BASIC 7.0 (C128) or BASIC 7.1 (C128)
 	 *          BASIC 7.1 is the super-set, select it
@@ -33,6 +35,11 @@ basic_t selectbasic(int adr)
 
 		case 0x0801:
 			return TFC3;
+			break;
+
+		case 0x1001:
+		case 0x1201:
+			return Basic2;
 			break;
 
 		case 0x132D:

@@ -1,5 +1,5 @@
 .\" $Id$
-.TH BASTEXT 1 1998-01-18 "Softwolves Software" ""
+.TH BASTEXT 1 "$Date$" "Softwolves Software" ""
 .SH NAME
 bastext \- convert Commodore BASIC to text
 .SH SYNOPSIS
@@ -32,16 +32,30 @@ by
 .BR bastext :
 .RS
 .PP
-.I Commodore BASIC 2.0
+.I Commodore BASIC 2.0 (VIC20/C64)
 .PD 0
 .PP
-.I Commodore BASIC 7.0
+.I Commodore BASIC 3.5 (C16/+4)
+.PP
+.I Commodore BASIC 4.0 (PET)
+.PP
+.I Commodore BASIC 7.0 (C128)
 .PP
 .I Software Unlimited's Graphics52 for Commodore 64
 .PP
 .I Riska BV's The Final Cartridge III for Commodore 64
 .PP
 .I Rick Simon's BASIC 7.1 for Commodore 128
+.PP
+.I VIC Super Extender for VIC-20
+.PP
+.I Turtle BASIC 1.0 for VIC-20
+.PP
+.I SpeechBASIC 2.7 for Commodore 64
+.PP
+.I AtBasic for Commodore 64
+.PP
+.I Simon's BASIC for Commodore 64
 .RE
 .PD
 .PP
@@ -54,19 +68,16 @@ These starting addresses are recognized, and interpreted (addresses
 written in hexadecimal):
 .TP
 0401
-.I VIC-20 BASIC 2.0
-or
-.IR "Commodore 64 Graphics52 BASIC extension" .
-Since Graphics52 is the super-set, the file will be interpreted
-as such.
+.I VIC-20 BASIC 2.0 (3K RAM expansion)
 .TP
 0801
 .I Commodore 64 BASIC 2.0
-or
-.IR "Commodore 64 The Final Cartridge III BASIC extension" .
-Since TFC3 is the super-set, the file will be interpreted
-as such.
 .TP
+1001
+.I VIC-20 BASIC 2.0 (unexpanded VIC)
+.TP
+1201
+.I VIC-20 BASIC 2.0 (8K RAM expansion)
 132D
 .IR "Commodore 128 BASIC 7.1 extension by Rick Simon" .
 This file is a combined file, with both the BASIC 7.1
@@ -76,17 +87,17 @@ with BASIC 7.1's
 command).
 The preamble will be ignored, and the file will be
 interpreted as BASIC 7.1.
-.TP
 1C01
 .I Commodore 128 BASIC 7.0
-or
-.IR "Commodore 128 BASIC 7.1 extension by Rick Simon" .
-Since BASIC 7.1 is the super-set, the file will be
-interpreted as such.
 .TP
 4001
 .I Commodore 128 BASIC 7.0
 saved with graphics mode enabled.
+.PP
+In version 1.0, some different third-party extensions were
+included in the autodetection.
+This is not true anymore, and thus you'll need to specify all
+extensions via command line parameters.
 .PP
 The text files created by this program are supposed to be
 compatible with those of
@@ -100,26 +111,29 @@ However, an extra header, in front of
 header is added,
 .IR "start bastext" ,
 which contains the starting address of the original binary
-file.
+file, as well as the name of BASIC extension used.
 This is to make the autodetection possible for the text-to-binary
 direction.
-The header is not included when the program starts at 0801
-(see also
-.BR BUGS )
-or 1C01.
 For Commodore 128 BASIC programs, the header is changed to
 .IR "start tok128" ,
 since
 .B tok64
 only supports C64 programs, this will make it skip those
 programs.
+For BASIC 4.0 programs, the header is
+.IR "start tokpet" ,
+for the same reason.
 .PP
 When
 .B bastext
 interprets text representations of files back into binary mode,
-it will use the start address as saved in the
+it will use the
 .I start bastext
-header, to autodetect the file format in the same way as in
+header to determine the BASIC extension to use.
+If the BASIC version is not mentioned there (version 1.0 of
+.I bastext
+only included the start address),
+bastext tries to autodetect the file format in the same way as in
 binary-to-text.
 If no such header exists (e.g if the file was created with
 .BR tok64 ),
@@ -410,7 +424,7 @@ outputs (without the
 .I start tok64
 header).
 .SH VERSION\ INFORMATION
-This documentation covers version 1.0 of
+This documentation covers version 1.1 BETA of
 .BR bastext .
 .SH AUTHOR
 BASTEXT was written by Peter Karlsson.

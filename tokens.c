@@ -6,7 +6,7 @@
 
 #include "tokens.h"
 
-/* C64 BASIC
+/* C64/VIC20 BASIC 2.0 (base for all versions)
  * offset: 128
  */
 
@@ -191,14 +191,14 @@ const char *tfc3tokens[] = {
 	"MWRITE"
 };
  
-/* C128 BASIC
+/* C128 BASIC 7.0 and C16/+4 BASIC 3.5
  * offset: 204
  */
 
 const char *c128tokens[] = {
 	"RGR",				/* 204 */	/* 0xCC */
 	"RCLR",
-	"", /* (prefix) */
+	"RLUM", /* (prefix in 7.0) */
 	"JOY",
 	"RDOT",							/* 0xD0 */
 	"DEC",
@@ -248,7 +248,7 @@ const char *c128tokens[] = {
 	"WHILE"				/* 253 */	/* 0xFD */
 };
 
-/* C128 BASIC
+/* C128 BASIC 7.0
  * CE prefix - sprite commands
  */
 
@@ -265,7 +265,7 @@ const char *c128CEtokens[] = {
 	"RWINDOW"			/* 9 */		/* 0x9 */
 };
 
-/* C128 BASIC
+/* C128 BASIC 7.0
  * FE prefix
  * includes Rick Simon's BASIC 7.1
  */
@@ -328,6 +328,62 @@ const char *c128FEtokens[] = {
 	"FIND",
 	"DUMP",
 	"MERGE"				/* 55 */	/* 0x37 */
+};
+
+/* PET BASIC 4.0
+ * includes C64 BASIC 4.0 extension
+ * offset: 204
+ */
+const char *basic4tokens[] = {
+	"CONCAT",			/* 204 */	/* 0xCC */
+	"DOPEN",
+	"DCLOSE",
+	"RECORD",
+	"HEADER",						/* 0xD0 */
+	"COLLECT",
+	"BACKUP",			/* 210 */
+	"COPY",
+	"APPEND",
+	"DSAVE",
+	"DLOAD",
+	"CATALOG",
+	"RENAME",
+	"SCRATCH",
+	"DIRECTORY",		/* 218 */	/* 0xDA */
+	/* C64 BASIC 4.0 extension */
+	"COLOR",			/* 219 */	/* 0xDB */
+	"COLD",				/* 220 */
+	"KEY",
+	"DVERIFY",
+	"DELETE",
+	"AUTO",							/* 0xE0 */
+	"MERGE",
+	"OLD",
+	"MONITOR"			/* 227 */	/* 0xE3 */
+};
+
+/* VIC Super Expander
+ * offset: 204
+ */
+const char *supertokens[] = {
+	"KEY",				/* 204 */	/* 0xCC */
+	"GRAPHIC",
+	"SCNCLR",
+	"CIRCLE",
+	"DRAW",							/* 0xD0 */
+	"REGION",
+	"COLOR",			/* 210 */
+	"POINT",
+	"SOUND",
+	"CHAR",
+	"PAINT",
+	"RPOT",
+	"RPEN",
+	"RSND",
+	"RCOLR",
+	"RGR",
+	"RJOY",				/* 220 */
+	"RDOT"				/* 221 */	/* 0xDD */
 };
 
 /* petscii conversion tables

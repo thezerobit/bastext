@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 	 *  7 (7.0)  - force BASIC 7.0          /   if not specified, looks at
 	 *  1 (7.1)  - force BASIC 7.1        -/    "start bastext" header
 	 *  a (all)  - convert all programs, not only those with recognized start
-	 *             address (0401/0801/132D/1C01/4001)
+	 *             address (0401/0801/1001/1201/132D/1C01/4001)
 	 *  s (strict)-strict tok64 encoding
 	 *  d (dest) - gives destination filename (followed by filename)
 	 *  h (help) - print help page
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 				                "    \t          out: creates/appends to bastext.t64)\n"
 				                "\n Input mode modfiers:\n"
 				                "  " SWITCH "a\tConvert all, not just recognized start addresses\n"
-				                "    \t (0401/0801/132D/1C01/4001)\n"
+				                "    \t (0401/0801/1001/1201/132D/1C01/4001)\n"
 				                "  " SWITCH "s\tStrict tok64 compatibility\n"
 				                "  " SWITCH "d fn\tSend output to file fn\n"
 				                "\n Output mode modifiers:\n"

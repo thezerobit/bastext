@@ -231,11 +231,14 @@ int tokenize(const char *input_p, char *output_p, int *length_p, basic_t mode)
 						inputleft -= tokenlen;
 					} /* if */
 				} /* for */
+skipover:
+			} /* if */
 
-				if (match) goto skipover;
-
+			if (!match && (Basic7 == mode || Basic71 == mode ||
+			               Basic35 == mode)) {
 				for (i = 0; i <= 49 && !match; i ++) {
-					if (0xCE == i) i ++;			/* skip prefix 0xCE */
+					if (0xCE == i && Basic35 != mode) i ++;
+						/* skip prefix 0xCE in BASIC 7.0/7.1 */
 					tokenlen = strlen(c128tokens[i]);	/* as above */
 					if (tokenlen && inputleft >= tokenlen &&
 					    0 == strncasecmp(input_p, c128tokens[i], tokenlen)) {
@@ -246,8 +249,6 @@ int tokenize(const char *input_p, char *output_p, int *length_p, basic_t mode)
 						inputleft -= tokenlen;
 					} /* if */
 				} /* for */
-
-skipover:
 			} /* if */
 
 			/* TFC3 */
@@ -272,6 +273,36 @@ skipover:
 					if (inputleft >= tokenlen &&
 					    0 == strncasecmp(input_p, graphics52tokens[i],
 					                     tokenlen)) {
+						/* token match found */
+						match = TRUE;
+						(*output_p ++) = i + 204;	/* write token */
+						input_p += tokenlen;		/* skip token */
+						inputleft -= tokenlen;
+					} /* if */
+				} /* for */
+			} /* if */
+
+			/* PET BASIC 4.0/C64 BASIC 4.0 extension */
+			if (!match && Basic4 == mode) {
+				for (i = 0; i <= 23 && !match; i ++) {
+					tokenlen = strlen(basic4tokens[i]); /* as above */
+					if (inputleft >= tokenlen &&
+					    0 == strncasecmp(input_p, basic4tokens[i], tokenlen)) {
+						/* token match found */
+						match = TRUE;
+						(*output_p ++) = i + 204;	/* write token */
+						input_p += tokenlen;		/* skip token */
+						inputleft -= tokenlen;
+					} /* if */
+				} /* for */
+			} /* if */
+
+			/* VIC Super Extender BASIC extension */
+			if (!match && VicSuper == mode) {
+				for (i = 0; i <= 17 && !match; i ++) {
+					tokenlen = strlen(supertokens[i]); /* as above */
+					if (inputleft >= tokenlen &&
+					    0 == strncasecmp(input_p, supertokens[i], tokenlen)) {
 						/* token match found */
 						match = TRUE;
 						(*output_p ++) = i + 204;	/* write token */
